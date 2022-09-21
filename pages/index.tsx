@@ -47,20 +47,20 @@ const Home: NextPage = () => {
         <h1 className="text-3xl mt-6 text-neutral-100 font-medium mb-3">
           Debljina Fonta:
         </h1>
-        <div className="flex mt-4">
-          <button className="bg-neutral-900/70 backdrop-blur-lg w-full text-neutral-100 px-6 py-2 font-medium">
+        <div className="flex mt-4 md:flex-row flex-col md:space-y-0 space-y-2">
+          <button className="bg-neutral-900/70 backdrop-blur-lg text-neutral-100 px-6 py-2 font-medium">
             Thin
           </button>
-          <button className=" bg-neutral-900/70 backdrop-blur-lg  w-full text-neutral-100 px-6 py-2 font-medium">
+          <button className=" bg-neutral-900/70 backdrop-blur-lg  text-neutral-100 px-6 py-2 font-medium">
             Regular
           </button>
-          <button className="bg-blue-600 w-full text-neutral-100 px-6 py-2 font-medium">
+          <button className="bg-blue-600 text-neutral-100 px-6 py-2 font-medium">
             Medium
           </button>
           <button className="  bg-neutral-900/70 backdrop-blur-lg  text-neutral-100 px-6 py-2 font-medium">
             Bold
           </button>
-          <button className="  bg-neutral-900/70 backdrop-blur-lg  w-full text-neutral-100 px-6 py-2 font-medium">
+          <button className="  bg-neutral-900/70 backdrop-blur-lg  text-neutral-100 px-6 py-2 font-medium">
             Black
           </button>
         </div>
