@@ -1,6 +1,6 @@
 # Medresa Tipografija
 
-Projekat made by: Amel Islamovic
+Vjezba
 
 ## Setup
 
