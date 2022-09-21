@@ -1,13 +1,35 @@
 import type { NextPage } from "next";
+import Head from "next/head";
 import React, { useState } from "react";
 import { ChromePicker } from "react-color";
+
+const weights = ["thin", "regular", "medium", "bold", "black"];
+const fonts = [
+  "Poppins",
+  "Roboto",
+  "Montserrat",
+  "Lato",
+  "Inter",
+  "Dancing Script",
+];
+
+const getFirstLetterUppercase = (s: string) => {
+  let rtrn = s[0].toUpperCase();
+  for (let i = 1; i < s.length; i++) {
+    rtrn += s[i];
+  }
+  return rtrn;
+};
 
 const Home: NextPage = () => {
   const [text, setText] = useState("Medresa");
   const [textColor, setTextColor] = useState("#ffffff");
+  const [font, setFont] = useState("Poppins");
+  const [size, setSize] = useState(50);
+  const [weight, setWeight] = useState("medium");
 
   const onChangeColor = (color: any, e: React.SyntheticEvent<any, any>) => {
-    setTextColor(color);
+    setTextColor(color.hex);
   };
 
   return (
@@ -21,6 +43,9 @@ const Home: NextPage = () => {
       }}
       className="w-full min-h-screen h-full flex py-6 px-6 flex-col-reverse xl:flex-row xl:justify-around items-center"
     >
+      <Head>
+        <title>Behram-begova Medresa | Tipografija</title>
+      </Head>
       <div className="max-w-lg w-full px-10 py-10 h-full bg-neutral-900/60 backdrop-blur-xl rounded-lg mt-6 xl:mt-0">
         <h1 className="text-3xl text-neutral-100 font-medium mb-3">
           Promjena fonta:
@@ -28,11 +53,19 @@ const Home: NextPage = () => {
         <select
           className="form-select mt-2 appearance-none block w-full px-4 py-2 text-lg font-normal text-gray-400 bg-neutral-900/90 bg-clip-padding bg-no-repeat border border-solid border-gray-700 rounded transition ease-in-out m-0 focus:text-gray-200 focus:bg-neutral-900 focus:border-blue-600 focus:outline-none"
           aria-label="Default select example"
+          defaultValue="serif"
+          value={font}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+            setFont(e.currentTarget.value);
+          }}
         >
-          <option selected>Roboto</option>
-          <option value="1">Poppins</option>
-          <option value="2">Sans Serif</option>
-          <option value="3">Neka Glupost</option>
+          {fonts.map((value, index) => {
+            return (
+              <option value={value} key={index}>
+                {value}
+              </option>
+            );
+          })}
         </select>
         <h1 className="text-3xl mt-6 text-neutral-100 font-medium mb-3">
           Velicina fonta:
@@ -40,29 +73,34 @@ const Home: NextPage = () => {
         <input
           type="range"
           defaultValue={50}
-          min={0}
-          max={100}
+          value={size}
+          min={5}
+          max={50}
+          step={1}
+          onChange={(e) => {
+            setSize(parseInt(e.currentTarget.value));
+          }}
           className="w-full h-2 bg-gray-900/90 mt-2 rounded-lg appearance-none cursor-pointer"
         />
         <h1 className="text-3xl mt-6 text-neutral-100 font-medium mb-3">
           Debljina Fonta:
         </h1>
         <div className="flex mt-4 md:flex-row flex-col md:space-y-0 space-y-2">
-          <button className="bg-neutral-900/70 backdrop-blur-lg text-neutral-100 px-6 py-2 font-medium">
-            Thin
-          </button>
-          <button className=" bg-neutral-900/70 backdrop-blur-lg  text-neutral-100 px-6 py-2 font-medium">
-            Regular
-          </button>
-          <button className="bg-blue-600 text-neutral-100 px-6 py-2 font-medium">
-            Medium
-          </button>
-          <button className="  bg-neutral-900/70 backdrop-blur-lg  text-neutral-100 px-6 py-2 font-medium">
-            Bold
-          </button>
-          <button className="  bg-neutral-900/70 backdrop-blur-lg  text-neutral-100 px-6 py-2 font-medium">
-            Black
-          </button>
+          {weights.map((value, index) => {
+            return (
+              <button
+                key={index}
+                className={`${
+                  weight === value ? "bg-blue-600" : "bg-neutral-900/70"
+                } backdrop-blur-lg text-neutral-100 px-6 py-2 font-medium`}
+                onClick={() => {
+                  setWeight(value);
+                }}
+              >
+                {getFirstLetterUppercase(value)}
+              </button>
+            );
+          })}
         </div>
         <h1 className="text-3xl mt-6 text-neutral-100 font-medium mb-3">
           Boja:
@@ -74,14 +112,34 @@ const Home: NextPage = () => {
         />
       </div>
       <div className="h-full w-full py-8 px-12 bg-neutral-900/60 backdrop-blur-lg rounded-lg max-w-lg">
-        <h1 className="text-[5rem] mb-4 text-neutral-100 break-words">
+        <h1
+          style={{
+            color: textColor,
+            fontSize: `${size / 10}rem`,
+            fontFamily: font,
+            fontWeight:
+              weight === "thin"
+                ? 200
+                : weight === "regular"
+                ? 400
+                : weight === "medium"
+                ? 500
+                : weight === "bold"
+                ? 700
+                : 900,
+          }}
+          className={`mb-4 text-neutral-100 break-words`}
+        >
           {text}
         </h1>
+        <p className="text-neutral-500 font-xl mb-2 font-medium">
+          Tekst (max: 20 char):{" "}
+        </p>
         <input
           value={text}
           onChange={(e: React.FormEvent<HTMLInputElement>) => {
             e.preventDefault();
-            if (e.currentTarget.value.length < 16) {
+            if (e.currentTarget.value.length < 20) {
               setText(e.currentTarget.value);
             }
           }}
