@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { ChromePicker } from "react-color";
 
 const Home: NextPage = () => {
+  const [text, setText] = useState("Medresa");
   const [textColor, setTextColor] = useState("#ffffff");
 
   const onChangeColor = (color: any, e: React.SyntheticEvent<any, any>) => {
@@ -18,9 +19,9 @@ const Home: NextPage = () => {
         backgroundImage:
           "linear-gradient(to bottom, rgba(0, 0, 0, 0.42), rgba(0, 0, 0, 0.63)), url(http://historija.info/wp-content/uploads/2019/03/Behram-begova-medresa3-e1552944182673.jpg)",
       }}
-      className="w-full min-h-screen h-full flex flex-col-reverse xl:flex-row xl:justify-around items-center"
+      className="w-full min-h-screen h-full flex py-6 px-6 flex-col-reverse xl:flex-row xl:justify-around items-center"
     >
-      <div className="max-w-lg w-full px-10 py-10 h-full bg-neutral-900/60 backdrop-blur-xl rounded-lg">
+      <div className="max-w-lg w-full px-10 py-10 h-full bg-neutral-900/60 backdrop-blur-xl rounded-lg mt-6 xl:mt-0">
         <h1 className="text-3xl text-neutral-100 font-medium mb-3">
           Promjena fonta:
         </h1>
@@ -72,8 +73,21 @@ const Home: NextPage = () => {
           onChange={onChangeColor}
         />
       </div>
-      <div className="h-full py-6 px-12 bg-neutral-900/60 backdrop-blur-lg rounded-lg">
-        <h1 className="text-[10rem] text-neutral-100">Medresa</h1>
+      <div className="h-full w-full py-8 px-12 bg-neutral-900/60 backdrop-blur-lg rounded-lg max-w-lg">
+        <h1 className="text-[5rem] mb-4 text-neutral-100 break-words">
+          {text}
+        </h1>
+        <input
+          value={text}
+          onChange={(e: React.FormEvent<HTMLInputElement>) => {
+            e.preventDefault();
+            if (e.currentTarget.value.length < 16) {
+              setText(e.currentTarget.value);
+            }
+          }}
+          className="w-full px-6 py-2 bg-neutral-800/90 border border-neutral-600 rounded-md backdrop-blur-lg outline-none text-neutral-100 focus:border-blue-600"
+          placeholder="Unesite tekst ovdje..."
+        />
       </div>
     </div>
   );
