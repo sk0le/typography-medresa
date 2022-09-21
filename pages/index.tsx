@@ -45,6 +45,11 @@ const Home: NextPage = () => {
     >
       <Head>
         <title>Behram-begova Medresa | Tipografija</title>
+        <link
+          rel="icon"
+          type="image/x-icon"
+          href="https://bbm.edu.ba/nova/wp-content/uploads/2022/03/logobbm90.png"
+        />
       </Head>
       <div className="max-w-lg w-full px-10 py-10 h-full bg-neutral-900/60 backdrop-blur-xl rounded-lg mt-6 xl:mt-0">
         <h1 className="text-3xl text-neutral-100 font-medium mb-3">
